@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { Logo, SearchIcon, GeneralIcon, CalendarIcon, BarsIcon, General2Icon, MailIcon, RingIcon, UserIcon, StarIcon, BankIcon, UserNoteIcon, ArrowLeftIcon, SearchInputIcon, DotsIcon, CloseCrossIcon, SettingsIcon, ExitIcon, LogoMobile, LightModeIcon, DarkModeIcon } from './Icons';
+import { Logo, SearchIcon, GeneralIcon, CalendarIcon, BarsIcon, General2Icon, MailIcon, RingIcon, UserIcon, StarIcon, BankIcon, UserNoteIcon, ArrowLeftIcon, SearchInputIcon, DotsIcon, CloseCrossIcon, SettingsIcon, ExitIcon, LogoMobile, LightModeIcon, DarkModeIcon, BurgerMenuIcon, TasksIcon, StatisticsIcon } from './Icons';
 
 // ---------------- Icons ----------------
 export const icons = {
@@ -15,12 +15,14 @@ export const icons = {
     users: <UserIcon />,
     events: <StarIcon />,
     organization: <BankIcon />,
-    teams: <UserNoteIcon />
+    teams: <UserNoteIcon />,
+    tasks: <TasksIcon />,
+    statistics: <StatisticsIcon />
 };
 
 // ---------------- Btn Datas ----------------
 export const mainMenuButtons = ['search', 'general', 'calendar', 'bars'];
-export const sliderMenuButtons = [
+export const searchGeneral = [
     { id: 'general', label: 'General', icon: 'general2' },
     { id: 'messages', label: 'Messages', icon: 'messages' },
     { id: 'notifications', label: 'Notifications', icon: 'notifications' },
@@ -28,6 +30,13 @@ export const sliderMenuButtons = [
     { id: 'events', label: 'Events & Logs', icon: 'events' },
     { id: 'organization', label: 'Organization', icon: 'organization' },
     { id: 'teams', label: 'Teams', icon: 'teams' }
+];
+export const calendar = [
+    { id: 'events', label: 'Events & Logs', icon: 'events' },
+    { id: 'tasks', label: 'Tasks', icon: 'tasks' },
+];
+export const bars = [
+    { id: 'statistics', label: 'Statistics', icon: 'statistics' },
 ];
 
 export default function SideMenu({ isMenuOpen, onToggleMenu }) {
@@ -62,9 +71,7 @@ export default function SideMenu({ isMenuOpen, onToggleMenu }) {
 
     // ---------------- Main Menu Section Click ----------------
     const menuSectionClick = (buttonId) => {
-        if (['search', 'general'].includes(buttonId) && !isMenuOpen) {
-            onToggleMenu();
-        } else if (['calendar', 'bars', 'settings'].includes(buttonId) && isMenuOpen) {
+        if (['search', 'general', 'calendar', 'bars'].includes(buttonId) && !isMenuOpen) {
             onToggleMenu();
         }
         setActiveButton(buttonId);
@@ -78,6 +85,20 @@ export default function SideMenu({ isMenuOpen, onToggleMenu }) {
     // ---------------- Slider Menu Section Click ----------------
     const sliderMenuSectionClick = (buttonId) => {
         setActiveButtonSlider(buttonId);
+    };
+
+    // ---------------- Determine Buttons for Slider ----------------
+    const getSliderButtons = () => {
+        switch (activeButton) {
+            case 'general':
+                return searchGeneral;
+            case 'calendar':
+                return calendar;
+            case 'bars':
+                return bars;
+            default:
+                return [];
+        }
     };
 
     // ---------------- Render Buttons ----------------
@@ -154,7 +175,7 @@ export default function SideMenu({ isMenuOpen, onToggleMenu }) {
                         </div>
 
                         <div className="sideMenuSections d-flex flex-column gap-sm-1">
-                            {sliderMenuButtons.map((button) => (
+                            {getSliderButtons().map(button => (
                                 <button
                                     key={button.id}
                                     className={`sideMenuSection w-100 py28 d-flex align-items-center gap12 ${activeButtonSlider === button.id ? 'active' : ''} ${(button.id || button) === 'organization' ? 'color-fill' : ''}`}
@@ -227,9 +248,7 @@ export default function SideMenu({ isMenuOpen, onToggleMenu }) {
                             </button>
                         </div>
                         <button className="burgerBtn btn d-flex align-items-center justify-content-center p-0" onClick={burgerMenuClick}>
-                            <svg width="21" height="15" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1H13M1 5H13M1 9H13" stroke="#272D37" strokeWidth="2" strokeLinecap="round" />
-                            </svg>
+                            <BurgerMenuIcon />
                         </button>
                     </div>
                 </div>
@@ -247,7 +266,7 @@ export default function SideMenu({ isMenuOpen, onToggleMenu }) {
 
                     <div className={`sliderbarMenuMobileSections flex-column justify-content-between ${isMenuOpen ? 'open' : 'closed'}`}>
                         <div className="sideMenuSections d-flex flex-column gap-sm-1">
-                            {sliderMenuButtons.map((button) => (
+                            {getSliderButtons().map(button => (
                                 <button
                                     key={button.id}
                                     className={`sideMenuSection w-100 py28 d-flex align-items-center gap12 ${activeButtonSlider === button.id ? 'active' : ''} ${(button.id || button) === 'organization' ? 'color-fill' : ''}`}
@@ -267,3 +286,24 @@ export default function SideMenu({ isMenuOpen, onToggleMenu }) {
         </>
     )
 }
+
+
+
+// Events Etkinlikler
+// Reminders Hatırlatıcılar
+// Tasks Görevler
+// Meetings Toplantılar
+// Deadlines Son teslim tarihleri
+// Appointments Randevular
+
+// Reports Raporlar
+// Statistics İstatistikler
+// Trends Trendler
+
+
+{/* <button className={`sideMenuSection w-100 py28 d-flex align-items-center gap12 ${activeButtonSlider === 'events' ? 'active' : ''}} onClick={() => sliderMenuSectionClick('events')`}>
+<div className="sideMenuSectionImg d-flex justify-content-center align-items-center">
+    <StarIcon />
+</div>
+<p className='textMSemibold text-gry'>Events & Logs</p>
+</button> */}
