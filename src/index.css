@@ -77,6 +77,7 @@ body.dark-mode {
   }
 
   & .color-fill:hover,
+  .color-fill.active,
   .menuSectionBtn.color-fill.active,
   .logo,
   .downloadBtn.color-fill {

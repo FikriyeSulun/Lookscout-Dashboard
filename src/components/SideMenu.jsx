@@ -286,24 +286,3 @@ export default function SideMenu({ isMenuOpen, onToggleMenu }) {
         </>
     )
 }
-
-
-
-// Events Etkinlikler
-// Reminders Hatırlatıcılar
-// Tasks Görevler
-// Meetings Toplantılar
-// Deadlines Son teslim tarihleri
-// Appointments Randevular
-
-// Reports Raporlar
-// Statistics İstatistikler
-// Trends Trendler
-
-
-{/* <button className={`sideMenuSection w-100 py28 d-flex align-items-center gap12 ${activeButtonSlider === 'events' ? 'active' : ''}} onClick={() => sliderMenuSectionClick('events')`}>
-<div className="sideMenuSectionImg d-flex justify-content-center align-items-center">
-    <StarIcon />
-</div>
-<p className='textMSemibold text-gry'>Events & Logs</p>
-</button> */}
